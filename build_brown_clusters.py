@@ -1,5 +1,6 @@
 # -*- coding: UTF-8 -*-
 import os, sys, getopt, subprocess, gzip, json
+from GZIPTweetStream import GZIPTweetStream
 
 def run_brown_clustering(input_file, c, out_dir):
 	c = 5
@@ -19,23 +20,12 @@ def run_brown_clustering(input_file, c, out_dir):
 
 
 	#extract text from gzipped json file
-	texts = []
-	with gzip.open(input_file) as f:
-		for line in f:
-			try:
-				tweet = json.loads(line.strip())
-				#TODO: tokenize properly first
-				texts.append(tweet['text'])
-			except:
-				#TODO: handle corrupted lines
-				continue
-
-	#texts = ['the dog rang', 'the cat jumped', 'they dropped the phone']
-
 	#write texts to temp file, tokens separated by spaces, one text per line
+	stream = GZIPTweetStream([input_file])
 	in_fn = "inputfile"
 	with open(in_dir+"/"+in_fn,"w+") as f:
-		f.write("\n".join(texts).encode("utf-8"))
+		for tweet in stream:
+			f.write(" ".join(tweet).encode("utf-8")+"\n")
 
 	cluster_command = "./brown-cluster/wcluster"
 	args = [cluster_command,
