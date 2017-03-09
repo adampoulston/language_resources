@@ -11,4 +11,4 @@ To use the brown clustering script `cd` into `brown-clustering` and run `make`.
 
 ##Usage
 ###Brown clustering
-`build_brow_clusters.py.py -i <input_file> -c <num_clusters> -o <output_directory>`
+`build_brown_clusters.py -i <input_file> -c <num_clusters> -o <output_directory>`

@@ -32,8 +32,6 @@ def run_brown_clustering(input_file, c, out_dir):
 
 	#texts = ['the dog rang', 'the cat jumped', 'they dropped the phone']
 
-	#END TODO
-
 	#write texts to temp file, tokens separated by spaces, one text per line
 	in_fn = "inputfile"
 	with open(in_dir+"/"+in_fn,"w+") as f:
@@ -51,7 +49,7 @@ def run_brown_clustering(input_file, c, out_dir):
 
 def usage():
 	print "Usage:"
-	print "build_brow_clusters.py.py -i <input_file> -c <num_clusters> -o <output_directory>"
+	print "build_brown_clusters.py -i <input_file> -c <num_clusters> -o <output_directory>"
 	sys.exit()
 
 def handle_args(argv):
