@@ -1,0 +1,84 @@
+# -*- coding: UTF-8 -*-
+import os, sys, getopt, subprocess, gzip, json
+
+def run_brown_clustering(input_file, c, out_dir):
+	c = 5
+
+	#Create temporary directories to store input/output files
+	in_dir = "./input"
+
+	try:
+		os.makedirs(in_dir)
+	except Exception, e:
+		print "Didnt create temp input dir (",str(e),")"
+
+	try:
+		os.makedirs(out_dir)
+	except Exception, e:
+		print "Didnt create temp output dir (",str(e),")"
+
+
+	#extract text from gzipped json file
+	texts = []
+	with gzip.open(input_file) as f:
+		for line in f:
+			try:
+				tweet = json.loads(line.strip())
+				#TODO: tokenize properly first
+				texts.append(tweet['text'])
+			except:
+				#TODO: handle corrupted lines
+				continue
+
+	#texts = ['the dog rang', 'the cat jumped', 'they dropped the phone']
+
+	#END TODO
+
+	#write texts to temp file, tokens separated by spaces, one text per line
+	in_fn = "inputfile"
+	with open(in_dir+"/"+in_fn,"w+") as f:
+		f.write("\n".join(texts).encode("utf-8"))
+
+	cluster_command = "./brown-cluster/wcluster"
+	args = [cluster_command,
+			"--text", in_dir+"/"+in_fn,
+			"--c", str(c),
+			"--output_dir", out_dir
+		]
+
+	code = subprocess.call(args)
+
+
+def usage():
+	print "Usage:"
+	print "build_brow_clusters.py.py -i <input_file> -c <num_clusters> -o <output_directory>"
+	sys.exit()
+
+def handle_args(argv):
+	input_file = None
+	c = None
+	output_directory = "./output"
+	try:
+		opts, args = getopt.getopt(argv,"hi:c:o:",["input_file=","num_clusters=","output_directory="])
+	except getopt.GetoptError:
+		usage()
+		sys.exit(2)
+	for opt, arg in opts:
+		if opt == '-h':
+			usage()
+		elif opt in ("-i", "--input_file"):
+			input_file = arg
+			#TODO: validate file exists
+		elif opt in ("-o", "--output_directory"):
+			output_directory = arg
+		elif opt in ("-c", "--num_clusters"):
+			c = int(arg)
+
+	if input_file and c:
+		return input_file, c, output_directory
+	else:
+		usage()
+
+if __name__ == "__main__":
+	input_file, c, out_dir = handle_args(sys.argv[1:])
+	run_brown_clustering(input_file, c, out_dir)
