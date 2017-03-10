@@ -12,3 +12,9 @@ To use the brown clustering/GloVe scripts first `cd` into `brown-clustering`/`Gl
 ##Usage
 ###Brown clustering
 `build_brown_clusters.py -i <input_file> -c <num_clusters> -o <output_directory>`
+
+###GloVe
+`build_glove.py -i <input_file> -o <output_directory>`
+
+###Word2Vec
+`build_w2v.py -i <input_file> -o <output_directory>`
