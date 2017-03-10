@@ -6,8 +6,8 @@ The code here has been was ran in `python 2.7.13` on Linux. Use of a tool such a
 
 Required packages listed in `requirements.txt` can be installed through `pip` (`pip install -r requirements.txt`). Packages requiring a little more work are listed in `additional_requirements.txt`.
 
-###brown-clustering 
-To use the brown clustering script `cd` into `brown-clustering` and run `make`.
+###brown-clustering and GloVe
+To use the brown clustering/GloVe scripts first `cd` into `brown-clustering`/`GloVe` and run `make`.
 
 ##Usage
 ###Brown clustering
