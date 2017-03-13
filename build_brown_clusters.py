@@ -24,7 +24,8 @@ def run_brown_clustering(input_file, c, out_dir):
 	print "Constructing input file."
 	stream = GZIPTweetStream([input_file])
 	in_fn = "inputfile"
-	with open(in_dir+"/"+in_fn,"w+") as f:
+	in_fn = in_dir+"/"+in_fn
+	with open(in_fn,"w+") as f:
 		for tweet in stream:
 			#Tweet should be lowercased or not?
 			f.write(" ".join(tweet).encode("utf-8").lower()+"\n")
@@ -32,14 +33,19 @@ def run_brown_clustering(input_file, c, out_dir):
 	print "Running brown clustering."
 	cluster_command = "./brown-cluster/wcluster"
 	args = [cluster_command,
-			"--text", in_dir+"/"+in_fn,
+			"--text", in_fn,
 			"--c", str(c),
 			"--output_dir", out_dir
 		]
 
 	code = subprocess.call(args)
 
-	#TODO: cleanup output file as it will be quite large
+	print "Removing temp input file."
+	try:
+		os.remove(in_fn)
+	except Exception, e:
+		print "Couldnt remove file:",str(e)
+	print "Done."
 
 
 def usage():

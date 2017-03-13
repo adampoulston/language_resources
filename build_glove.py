@@ -65,7 +65,12 @@ def run_glove(input_file, out_dir):
 	shuffle_res = subprocess.call(shuffle_args,stdin=open(cooccurrence_file,"rb"),stdout=open(cooccurrence_shuf_file,"w+"))
 	print "Calling glove process."
 	glove_res = subprocess.call(glove_args)
-	print "Fin."
+	print "Removing temp input file."
+	try:
+		os.remove(in_fn)
+	except Exception, e:
+		print "Couldnt remove file:",str(e)
+	print "Done."
 
 def usage():
 	print "Usage:"
