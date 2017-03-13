@@ -1,11 +1,12 @@
 # -*- coding: UTF-8 -*-
 import os, sys, getopt, subprocess, gzip, json
 from GZIPTweetStream import GZIPTweetStream
+from text_utils import rand_str
 
 def run_glove(input_file, out_dir):
 
 	#Create temporary directories to store input/output files
-	in_dir = "./glove_input"
+	in_dir = "./input/"+rand_str(10)
 
 	try:
 		os.makedirs(in_dir)

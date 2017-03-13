@@ -4,6 +4,7 @@ import re
 import string
 from emoji_codes import *
 from twokenize import tokenize
+from random import choice
 
 #Regular expressions for stripping text
 url_re = re.compile(r"(http|ftp|https)(:\/\/)([\w\-_]+(?:(?:\.[\w\-_]+)+))([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?")
@@ -104,3 +105,6 @@ def extract_emoji(text):
         emo_string += " "+match+"_"+emoji_description
 
     return emo_string
+
+def rand_str(n=15):
+    return ''.join([choice(string.ascii_lowercase) for _ in range(n)])

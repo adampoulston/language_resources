@@ -1,13 +1,12 @@
 # -*- coding: UTF-8 -*-
 import os, sys, getopt, subprocess, gzip, json
 from GZIPTweetStream import GZIPTweetStream
+from text_utils import rand_str
 
 def run_brown_clustering(input_file, c, out_dir):
-	c = 5
-
 	#Create temporary directories to store input/output files
-	in_dir = "./input"
-
+	in_dir = "./input/"+rand_str(15)
+	print "Creating temp directories."
 	try:
 		os.makedirs(in_dir)
 	except Exception, e:
@@ -16,17 +15,21 @@ def run_brown_clustering(input_file, c, out_dir):
 	try:
 		os.makedirs(out_dir)
 	except Exception, e:
+		#TODO: should probably clear the directory for new files?
 		print "Didnt create temp output dir (",str(e),")"
 
 
 	#extract text from gzipped json file
 	#write texts to temp file, tokens separated by spaces, one text per line
+	print "Constructing input file."
 	stream = GZIPTweetStream([input_file])
 	in_fn = "inputfile"
 	with open(in_dir+"/"+in_fn,"w+") as f:
 		for tweet in stream:
-			f.write(" ".join(tweet).encode("utf-8")+"\n")
+			#Tweet should be lowercased or not?
+			f.write(" ".join(tweet).encode("utf-8").lower()+"\n")
 
+	print "Running brown clustering."
 	cluster_command = "./brown-cluster/wcluster"
 	args = [cluster_command,
 			"--text", in_dir+"/"+in_fn,
@@ -35,6 +38,8 @@ def run_brown_clustering(input_file, c, out_dir):
 		]
 
 	code = subprocess.call(args)
+
+	#TODO: cleanup output file as it will be quite large
 
 
 def usage():
