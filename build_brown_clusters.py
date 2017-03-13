@@ -38,6 +38,38 @@ def run_brown_clustering(input_file, c, out_dir):
         ]
     code = subprocess.call(args)
 
+# Deprecated
+# def usage():
+#     print "Usage:"
+#     print "build_brown_clusters.py -i <input_file> -c <num_clusters> -o <output_directory>"
+#     sys.exit()
+#
+# def handle_args(argv):
+#     input_file = None
+#     c = None
+#     output_directory = "./output"
+#     try:
+#         opts, args = getopt.getopt(argv,"hi:c:o:",["input_file=","num_clusters=","output_directory="])
+#     except getopt.GetoptError:
+#         usage()
+#         sys.exit(2)
+#     for opt, arg in opts:
+#         if opt == '-h':
+#             usage()
+#         elif opt in ("-i", "--input_file"):
+#             input_file = arg
+#             #TODO: validate file exists
+#         elif opt in ("-o", "--output_directory"):
+#             output_directory = arg
+#         elif opt in ("-c", "--num_clusters"):
+#             c = int(arg)
+#
+#     if input_file and c:
+#         return input_file, c, output_directory
+#     else:
+#         usage()
+    #TODO: cleanup output file as it will be quite large
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
