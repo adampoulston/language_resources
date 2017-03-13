@@ -36,7 +36,7 @@ def run_brown_clustering(input_file, c, out_dir):
             "--c", str(c),
             "--output_dir", out_dir
         ]
-    
+    code = subprocess.call(args)
     
     print "Removing temp input file."
     try:
