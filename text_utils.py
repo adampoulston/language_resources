@@ -9,7 +9,7 @@ from random import choice
 #Regular expressions for stripping text
 url_re = re.compile(r"(http|ftp|https)(:\/\/)([\w\-_]+(?:(?:\.[\w\-_]+)+))([\w\-\.,@?^=%&amp;:\/~\+#]*[\w\-\@?^=%&amp;\/~\+#])?")
 mention_re = re.compile(r"(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z0-9\_]+[A-Za-z0-9\_]+)")
-word_pad_re = re.compile(r"(.{2})\1{1,}")
+word_pad_re = re.compile(r"\b(\S*?)(.)\2{2,}\b")
 #matches alphanumeric and # + @
 alphanumeric_only_re = re.compile('([^\s\w#@]|_)+', re.UNICODE)
 quotation_re = re.compile(r'(["“])((?:(?!\1)[^\\]|(?:\\\\)*\\[^\\])*)(\1)')

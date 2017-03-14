@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-import os, sys, getopt, subprocess, gzip, json
+import os, sys, getopt, subprocess, gzip, json, argparse
 from GZIPTweetStream import GZIPTweetStream
 from gensim.models import Word2Vec
 

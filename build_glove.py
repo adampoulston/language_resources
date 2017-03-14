@@ -39,9 +39,9 @@ def run_glove(input_file, out_dir):
     builddir=glove_dir+"/build"
     save_file=out_dir+"/vectors"
     verbose=2
-    memory=4.0
+    memory=8.0
     vocab_min_count=5
-    vector_size=50
+    vector_size=200
     max_iter=15
     window_size=15
     binary=2
